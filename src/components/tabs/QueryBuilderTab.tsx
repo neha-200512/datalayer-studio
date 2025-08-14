@@ -34,10 +34,10 @@ interface QueryResult {
 
 export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => {
   const [dataset, setDataset] = useState(selectedDatasetId || "plfs");
-  const [state, setState] = useState("");
-  const [gender, setGender] = useState("");
-  const [age, setAge] = useState("");
-  const [year, setYear] = useState("");
+  const [state, setState] = useState("all");
+  const [gender, setGender] = useState("all");
+  const [age, setAge] = useState("all");
+  const [year, setYear] = useState("all");
   const [groupBy, setGroupBy] = useState("employment_status");
   const [metric, setMetric] = useState("count");
   const [results, setResults] = useState<QueryResult[]>([]);
@@ -55,10 +55,10 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
     params.set("version", "2022_q3");
     
     const filters: Record<string, string> = {};
-    if (state) filters.state = state;
-    if (gender) filters.gender = gender;
-    if (age) filters.age = age;
-    if (year) filters.year = year;
+    if (state && state !== "all") filters.state = state;
+    if (gender && gender !== "all") filters.gender = gender;
+    if (age && age !== "all") filters.age = age;
+    if (year && year !== "all") filters.year = year;
     
     params.set("filters", JSON.stringify(filters));
     params.set("group_by", groupBy);
@@ -91,10 +91,10 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
   };
 
   const resetQuery = () => {
-    setState("");
-    setGender("");
-    setAge("");
-    setYear("");
+    setState("all");
+    setGender("all");
+    setAge("all");
+    setYear("all");
     setGroupBy("employment_status");
     setMetric("count");
     setResults([]);
@@ -177,7 +177,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="all">Any</SelectItem>
                 {STATES.map((s) => (
                   <SelectItem key={s} value={s}>
                     {s}
@@ -194,7 +194,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="all">Any</SelectItem>
                 <SelectItem value="female">Female</SelectItem>
                 <SelectItem value="male">Male</SelectItem>
                 <SelectItem value="other">Other</SelectItem>
@@ -209,7 +209,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="all">Any</SelectItem>
                 <SelectItem value="15-29">15-29</SelectItem>
                 <SelectItem value="30-44">30-44</SelectItem>
                 <SelectItem value="45-59">45-59</SelectItem>
@@ -225,7 +225,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="all">Any</SelectItem>
                 <SelectItem value="2021">2021</SelectItem>
                 <SelectItem value="2022">2022</SelectItem>
                 <SelectItem value="2023">2023</SelectItem>
