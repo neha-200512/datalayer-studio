@@ -1,6 +1,7 @@
 import { Dataset } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 
 interface DatasetCardProps {
   dataset: Dataset;
@@ -9,6 +10,8 @@ interface DatasetCardProps {
 }
 
 export const DatasetCard = ({ dataset, onViewDetails, onOpenQuery }: DatasetCardProps) => {
+  const navigate = useNavigate();
+  
   const getAccessBadgeVariant = (access: string) => {
     return access === 'premium' ? 'destructive' : 'secondary';
   };
@@ -44,6 +47,14 @@ export const DatasetCard = ({ dataset, onViewDetails, onOpenQuery }: DatasetCard
           size="sm"
         >
           Query
+        </Button>
+        <Button 
+          onClick={() => navigate(`/analysis/${dataset.id}`)}
+          variant="outline"
+          className="mospi-btn-secondary"
+          size="sm"
+        >
+          Analysis
         </Button>
       </div>
     </div>

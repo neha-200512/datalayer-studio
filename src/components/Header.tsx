@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, Sun, Moon } from "lucide-react";
+import { Search, Sun, Moon, Download, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   searchQuery: string;
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ searchQuery, onSearchChange, darkMode, onThemeToggle }: HeaderProps) => {
+  const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/80 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">

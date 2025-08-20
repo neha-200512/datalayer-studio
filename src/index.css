@@ -17,18 +17,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Primary - government blue with good contrast */
-    --primary: 225 83% 53%;
+    /* Primary - indigo theme */
+    --primary: 238 75% 59%;
     --primary-50: 238 100% 97%;
     --primary-100: 238 94% 93%;
     --primary-200: 237 85% 86%;
     --primary-300: 236 75% 76%;
     --primary-400: 234 65% 64%;
-    --primary-500: 225 83% 53%;
-    --primary-600: 225 70% 40%;
-    --primary-700: 226 56% 33%;
-    --primary-800: 226 47% 27%;
-    --primary-900: 224 47% 23%;
+    --primary-500: 238 75% 59%;
+    --primary-600: 232 79% 51%;
+    --primary-700: 230 81% 42%;
+    --primary-800: 229 84% 33%;
+    --primary-900: 224 76% 26%;
     --primary-foreground: 210 40% 98%;
 
     /* Secondary - subtle gray tones */
