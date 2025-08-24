@@ -3,7 +3,7 @@ import { DATASETS, STATES, EMPLOYMENT_STATUS_OPTIONS, SECTOR_OPTIONS, EDUCATION_
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Bar } from "react-chartjs-2";
+import { Bar, Pie, Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
+  PointElement,
+  LineElement,
 } from 'chart.js';
 
 ChartJS.register(
@@ -20,7 +23,10 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement
 );
 
 interface QueryBuilderTabProps {
@@ -42,6 +48,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
   const [metric, setMetric] = useState("count");
   const [results, setResults] = useState<QueryResult[]>([]);
   const [apiUrl, setApiUrl] = useState("");
+  const [chartType, setChartType] = useState("bar");
 
   useEffect(() => {
     if (selectedDatasetId) {
@@ -123,15 +130,20 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
     }
   };
 
+  const colors = [
+    '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', 
+    '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#6366f1'
+  ];
+
   const chartData = {
     labels: results.map(r => r.group),
     datasets: [
       {
         label: metric,
         data: results.map(r => typeof r.value === 'number' ? r.value : 0),
-        backgroundColor: 'hsl(var(--primary) / 0.8)',
-        borderColor: 'hsl(var(--primary))',
-        borderWidth: 1,
+        backgroundColor: results.map((_, index) => colors[index % colors.length]),
+        borderColor: results.map((_, index) => colors[index % colors.length]),
+        borderWidth: 2,
       },
     ],
   };
@@ -319,10 +331,31 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
         </div>
 
         <div className="mospi-card p-4 bg-primary/5 border-primary/20">
-          <h3 className="font-semibold mb-2">Chart</h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold">Chart</h3>
+            <div>
+              <Label className="mospi-label">Chart Type</Label>
+              <Select value={chartType} onValueChange={setChartType}>
+                <SelectTrigger className="mospi-field w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bar">Bar Chart</SelectItem>
+                  <SelectItem value="pie">Pie Chart</SelectItem>
+                  <SelectItem value="doughnut">Doughnut</SelectItem>
+                  <SelectItem value="line">Line Chart</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
           <div className="h-64">
             {results.length > 0 ? (
-              <Bar data={chartData} options={chartOptions} />
+              <>
+                {chartType === 'bar' && <Bar data={chartData} options={chartOptions} />}
+                {chartType === 'pie' && <Pie data={chartData} options={{...chartOptions, scales: undefined}} />}
+                {chartType === 'doughnut' && <Doughnut data={chartData} options={{...chartOptions, scales: undefined}} />}
+                {chartType === 'line' && <Line data={chartData} options={chartOptions} />}
+              </>
             ) : (
               <div className="h-full flex items-center justify-center text-muted-foreground">
                 <p>Chart will appear here after running a query</p>
