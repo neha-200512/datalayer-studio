@@ -124,14 +124,20 @@ const DatasetAnalysis = () => {
               <h4 className="text-sm font-medium mb-3">Distribution Analysis</h4>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={[
-                  { name: 'Male', value: 52, fill: 'hsl(var(--primary))' },
-                  { name: 'Female', value: 48, fill: 'hsl(var(--primary-600))' }
+                  { name: 'Male', value: 52, fill: '#3b82f6' },
+                  { name: 'Female', value: 48, fill: '#8b5cf6' }
                 ]}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="name" stroke="#6b7280" />
+                  <YAxis stroke="#6b7280" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#f8fafc', 
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px'
+                    }} 
+                  />
+                  <Bar dataKey="value" fill="#3b82f6" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -141,20 +147,26 @@ const DatasetAnalysis = () => {
                 <PieChart>
                   <Pie
                     data={[
-                      { name: 'Urban', value: 40, fill: 'hsl(var(--primary))' },
-                      { name: 'Rural', value: 60, fill: 'hsl(var(--primary-600))' }
+                      { name: 'Urban', value: 40, fill: '#10b981' },
+                      { name: 'Rural', value: 60, fill: '#f59e0b' }
                     ]}
                     cx="50%"
                     cy="50%"
                     outerRadius={80}
                     dataKey="value"
-                    label
+                    label={{ fill: '#374151', fontSize: 14 }}
                   >
-                    {[{ name: 'Urban', value: 40 }, { name: 'Rural', value: 60 }].map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.name === 'Urban' ? 'hsl(var(--primary))' : 'hsl(var(--primary-600))'} />
+                    {[{ name: 'Urban', value: 40, fill: '#10b981' }, { name: 'Rural', value: 60, fill: '#f59e0b' }].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#f8fafc', 
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px'
+                    }} 
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
