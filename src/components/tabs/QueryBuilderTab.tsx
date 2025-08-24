@@ -48,7 +48,6 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
   const [metric, setMetric] = useState("count");
   const [results, setResults] = useState<QueryResult[]>([]);
   const [apiUrl, setApiUrl] = useState("");
-  const [chartType, setChartType] = useState("bar");
 
   useEffect(() => {
     if (selectedDatasetId) {
@@ -331,37 +330,33 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
         </div>
 
         <div className="mospi-card p-4 bg-primary/5 border-primary/20">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold">Chart</h3>
-            <div>
-              <Label className="mospi-label">Chart Type</Label>
-              <Select value={chartType} onValueChange={setChartType}>
-                <SelectTrigger className="mospi-field w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="bar">Bar Chart</SelectItem>
-                  <SelectItem value="pie">Pie Chart</SelectItem>
-                  <SelectItem value="doughnut">Doughnut</SelectItem>
-                  <SelectItem value="line">Line Chart</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <div className="h-64">
-            {results.length > 0 ? (
-              <>
-                {chartType === 'bar' && <Bar data={chartData} options={chartOptions} />}
-                {chartType === 'pie' && <Pie data={chartData} options={{...chartOptions, scales: undefined}} />}
-                {chartType === 'doughnut' && <Doughnut data={chartData} options={{...chartOptions, scales: undefined}} />}
-                {chartType === 'line' && <Line data={chartData} options={chartOptions} />}
-              </>
-            ) : (
-              <div className="h-full flex items-center justify-center text-muted-foreground">
-                <p>Chart will appear here after running a query</p>
+          <h3 className="font-semibold mb-4">Charts</h3>
+          {results.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div>
+                <h4 className="text-sm font-medium mb-2 text-center">Bar Chart</h4>
+                <div className="h-48">
+                  <Bar data={chartData} options={chartOptions} />
+                </div>
               </div>
-            )}
-          </div>
+              <div>
+                <h4 className="text-sm font-medium mb-2 text-center">Pie Chart</h4>
+                <div className="h-48">
+                  <Pie data={chartData} options={{...chartOptions, scales: undefined}} />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-medium mb-2 text-center">Line Chart</h4>
+                <div className="h-48">
+                  <Line data={chartData} options={chartOptions} />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-48 flex items-center justify-center text-muted-foreground">
+              <p>Charts will appear here after running a query</p>
+            </div>
+          )}
         </div>
       </section>
     </div>
