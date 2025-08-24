@@ -318,7 +318,7 @@ export const QueryBuilderTab = ({ selectedDatasetId }: QueryBuilderTabProps) => 
           )}
         </div>
 
-        <div className="mospi-card p-4">
+        <div className="mospi-card p-4 bg-primary/5 border-primary/20">
           <h3 className="font-semibold mb-2">Chart</h3>
           <div className="h-64">
             {results.length > 0 ? (
