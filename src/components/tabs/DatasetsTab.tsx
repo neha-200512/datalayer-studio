@@ -292,7 +292,7 @@ export const DatasetsTab = ({ searchQuery, onOpenQuery, onOpenPlayground }: Data
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { label: "Total Datasets", value: DATASETS.length, icon: Database, color: "blue" },
-            { label: "Public Access", value: DATASETS.filter(d => d.access === "free").length, icon: Globe, color: "green" },
+            { label: "Public Access", value: DATASETS.filter(d => d.access === "public").length, icon: Globe, color: "green" },
             { label: "Premium", value: DATASETS.filter(d => d.access === "premium").length, icon: Star, color: "yellow" },
             { label: "Updated Today", value: 3, icon: Clock, color: "purple" }
           ].map((stat, index) => {
