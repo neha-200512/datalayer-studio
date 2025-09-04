@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* MoSPI Microdata Portal Design System - inspired by government data portals with modern aesthetics */
+/* MoSPI Microdata Portal Design System - Modern glassmorphism with enhanced animations */
 
 @layer base {
   :root {
-    /* Base colors - clean, professional government portal aesthetic */
+    /* Enhanced color palette with more granular control */
     --background: 210 24% 98%;
     --foreground: 222.2 84% 4.9%;
 
-    /* Cards with soft shadows */
+    /* Cards with enhanced glassmorphism */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Primary - indigo theme */
+    /* Enhanced primary colors with more variations */
     --primary: 238 75% 59%;
     --primary-50: 238 100% 97%;
     --primary-100: 238 94% 93%;
@@ -31,15 +31,15 @@
     --primary-900: 224 76% 26%;
     --primary-foreground: 210 40% 98%;
 
-    /* Secondary - subtle gray tones */
+    /* Enhanced secondary colors */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    /* Muted colors for less important elements */
+    /* Muted colors for subtle elements */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    /* Accent color - slightly warmer */
+    /* Accent colors */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
@@ -52,14 +52,16 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 225 83% 53%;
 
-    /* Border radius for modern look */
+    /* Modern border radius */
     --radius: 0.75rem;
 
-    /* Custom design tokens */
+    /* Enhanced design tokens */
     --shadow-soft: 0 10px 30px rgba(2, 6, 23, 0.08);
     --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-elevated: 0 20px 40px rgba(2, 6, 23, 0.12);
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary-500)), hsl(var(--primary-600)));
     --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
+    --backdrop-blur: blur(12px);
 
     /* Sidebar colors */
     --sidebar-background: 0 0% 98%;
@@ -73,7 +75,7 @@
   }
 
   .dark {
-    /* Dark mode - professional dark theme */
+    /* Enhanced dark mode with better contrast */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -104,9 +106,10 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-    /* Dark mode shadows */
+    /* Enhanced dark mode shadows */
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
     --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-elevated: 0 20px 40px rgba(0, 0, 0, 0.4);
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -125,55 +128,214 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection colors */
+  ::selection {
+    @apply bg-primary/20 text-primary-900;
+  }
+
+  /* Focus visible improvements */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary/50 ring-offset-2 ring-offset-background;
   }
 }
 
-/* Custom component styles for MoSPI Portal */
+/* Enhanced component styles */
 @layer components {
+  /* Glass cards with improved shadows */
   .mospi-card {
-    @apply bg-card dark:bg-card border border-border rounded-2xl;
-    box-shadow: var(--shadow-soft);
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl;
+    box-shadow: var(--shadow-elevated);
   }
   
+  /* Modern buttons with gradients */
   .mospi-btn {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-transparent;
-    @apply bg-primary hover:bg-primary-600 text-primary-foreground;
-    @apply transition-colors duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-transparent;
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700;
+    @apply text-white shadow-md hover:shadow-lg;
+    @apply transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98];
   }
   
   .mospi-btn-secondary {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium;
-    @apply border border-border hover:border-primary/20 bg-card hover:bg-accent;
-    @apply text-foreground transition-colors duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium;
+    @apply border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80;
+    @apply hover:bg-white dark:hover:bg-gray-800 backdrop-blur-sm;
+    @apply text-gray-700 dark:text-gray-300 transition-all duration-200;
+    @apply hover:scale-[1.02] active:scale-[0.98];
   }
   
+  /* Chips and badges */
   .mospi-chip {
-    @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium;
-    @apply bg-muted text-muted-foreground;
+    @apply inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium;
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300;
+    @apply border border-gray-200 dark:border-gray-700;
   }
   
+  /* Enhanced form fields */
   .mospi-field {
-    @apply w-full rounded-xl border border-input bg-card px-3 py-2 text-sm;
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
-    @apply transition-all duration-200;
+    @apply w-full rounded-xl border border-gray-200 dark:border-gray-700;
+    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-3 text-sm;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50;
+    @apply transition-all duration-200 placeholder:text-gray-500;
   }
   
+  /* Labels */
   .mospi-label {
-    @apply text-xs font-medium text-muted-foreground uppercase tracking-wide;
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block;
   }
   
+  /* Tab buttons with enhanced animations */
   .mospi-tab-btn {
-    @apply px-4 py-2 text-sm font-medium rounded-xl border border-transparent;
-    @apply transition-all duration-200;
+    @apply px-6 py-3 text-sm font-medium rounded-xl border border-transparent;
+    @apply transition-all duration-200 flex items-center gap-2;
+    @apply hover:scale-[1.02] active:scale-[0.98];
   }
   
   .mospi-tab-btn.active {
-    @apply bg-primary text-primary-foreground shadow-sm;
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md;
   }
   
   .mospi-tab-btn:not(.active) {
-    @apply text-muted-foreground hover:text-foreground hover:bg-accent;
+    @apply text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100;
+    @apply hover:bg-gray-100 dark:hover:bg-gray-800/50;
   }
+
+  /* Utility classes for better layout */
+  .section-spacing {
+    @apply py-12 lg:py-16;
+  }
+
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Text utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Animation classes */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Chart enhancements */
+.recharts-cartesian-grid line {
+  @apply stroke-gray-200 dark:stroke-gray-700;
+}
+
+.recharts-text {
+  @apply fill-gray-600 dark:fill-gray-400;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Dark mode loading shimmer */
+.dark .loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { TabNavigation } from "@/components/TabNavigation";
 import { DatasetsTab } from "@/components/tabs/DatasetsTab";
@@ -66,7 +67,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -75,8 +76,23 @@ const Index = () => {
       />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-        {renderActiveTab()}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+        </motion.div>
+        
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+        >
+          {renderActiveTab()}
+        </motion.div>
       </main>
     </div>
   );
